@@ -1,4 +1,5 @@
 import styles from './Hero.module.scss';
+import Image from 'next/image';
 const Hero = () => {
   return (
     <div className={styles.hero}>
@@ -10,7 +11,7 @@ const Hero = () => {
         <span className={styles.tagline}>WITH THE POWER OF CLOUD</span>
       </p>
       <div className={styles.booksContainer}>
-        <img className={styles.booksContainer} src="images/hero.png" alt="logo" />
+        <Image height="400px" width="400px" src="/images/hero.png" alt="logo" />
       </div>
     </div>
   );
