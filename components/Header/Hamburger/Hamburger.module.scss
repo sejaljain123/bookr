@@ -1,0 +1,30 @@
+.hamburger {
+  .icon {
+    cursor: pointer;
+  }
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--headline-color);
+    list-style: none;
+    color: white;
+    margin: 20px 0px;
+    padding: 5px 15px;
+    height: 8rem;
+    width: 10rem;
+
+    .item {
+      padding: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+
+      &:hover {
+        transition: ease-in-out 1s;
+        color: var(--tertiary-color);
+        font-size: 1.3rem;
+      }
+    }
+  }
+}

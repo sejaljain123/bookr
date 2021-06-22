@@ -1,0 +1,11 @@
+.Forms {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 600px) {
+  .Form {
+    display: block;
+  }
+}
