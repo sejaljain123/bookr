@@ -1,70 +1,63 @@
 import { useState } from 'react';
 import styles from '../Forms.module.scss';
+import { useAuth } from '../../../../context/AuthUserContext';
 
 const Register = () => {
-  const [values, setValues] = useState({
+  const { createUserWithEmailAndPassword } = useAuth();
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
   });
-  // eslint-disable-next-line
-  const [_, setSubmitted] = useState(false);
+
   const handleSubmit = (event: any) => {
+    createUserWithEmailAndPassword(formData.email, formData.password)
+      .then((authUser) => {
+        console.log('Success. The user is created in Firebase');
+      })
+      .catch((error) => {
+        // An error occurred. Set error message to be displayed to user
+        console.log(error);
+      });
+
     event.preventDefault();
-    setSubmitted(true);
   };
 
-  const handleName = (event: any) => {
+  const updateInput = (event: any) => {
     event.persist();
-    setValues((values) => ({
-      ...values,
-      name: event.target.value,
-    }));
-  };
-  const handleEmail = (event: any) => {
-    event.persist();
-    setValues((values) => ({
-      ...values,
-      email: event.target.value,
-    }));
-  };
-  const handlePassword = (event: any) => {
-    event.persist();
-    setValues((values) => ({
-      ...values,
-      password: event.target.value,
-    }));
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h1 className={styles.formheading}> NEW HERE?</h1>
       <input
-        onChange={handleName}
+        onChange={updateInput}
         className={styles.formfield}
         type="name"
         name="name"
-        id="name"
         placeholder="Name"
-        value={values.name}
+        value={formData.name || ''}
       />
       <input
-        onChange={handleEmail}
+        onChange={updateInput}
         className={styles.formfield}
         type="email"
-        name="email-address"
-        id="email-address"
+        name="email"
         placeholder="Email"
-        value={values.email}
+        value={formData.email || ''}
       />
       <input
-        onChange={handlePassword}
+        onChange={updateInput}
         className={styles.formfield}
         type="password"
         name="password"
         id="password"
         placeholder="Password"
-        value={values.password}
+        value={formData.password || ''}
       />
       <input onClick={handleSubmit} className={styles.submit} type="submit" value="REGISTER" />
     </form>

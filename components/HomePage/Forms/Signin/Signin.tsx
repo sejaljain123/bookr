@@ -1,53 +1,49 @@
 import { useState } from 'react';
 import styles from '../Forms.module.scss';
+import { useAuth } from '../../../../context/AuthUserContext';
+import { useRouter } from 'next/router';
 
 const Signin = () => {
-  const [values, setValues] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  // eslint-disable-next-line
-  const [_, setSubmitted] = useState(false);
+  const { signInWithEmailAndPassword } = useAuth();
+  const router = useRouter();
+
   const handleSubmit = (event: any) => {
+    signInWithEmailAndPassword(formData.email, formData.password).then((authUser) => {
+      router.push('/home');
+    });
     event.preventDefault();
-    setSubmitted(true);
   };
 
-  const handleEmail = (event: any) => {
+  const updateInput = (event: any) => {
     event.persist();
-    setValues((values) => ({
-      ...values,
-      email: event.target.value,
-    }));
-  };
-  const handlePassword = (event: any) => {
-    event.persist();
-    setValues((values) => ({
-      ...values,
-      password: event.target.value,
-    }));
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h1 className={styles.formheading}>ALREADY AN USER?</h1>
       <input
-        onChange={handleEmail}
+        onChange={updateInput}
         className={styles.formfield}
         type="email"
-        name="email-address"
-        id="email-address"
+        name="email"
         placeholder="Email"
-        value={values.email}
+        value={formData.email || ''}
       />
       <input
-        onChange={handlePassword}
+        onChange={updateInput}
         className={styles.formfield}
         type="password"
         name="password"
-        id="password"
         placeholder="Password"
-        value={values.password}
+        value={formData.password || ''}
       />
       <input onClick={handleSubmit} className={styles.submit} type="submit" value="SIGN IN" />
     </form>

@@ -1,11 +1,11 @@
 .hero {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   .booksContainer {
     height: auto;
-    width: 50%;
+    width: 40%;
     min-width: 200px;
   }
 
@@ -19,7 +19,7 @@
     align-items: center;
     letter-spacing: 0.03em;
     color: var(--headline-color);
-    margin-left: 2em;
+    margin-left: 0.8em;
 
     .tagline {
       display: flex;
