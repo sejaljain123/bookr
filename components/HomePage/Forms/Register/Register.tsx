@@ -32,35 +32,39 @@ const Register = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <h1 className={styles.formheading}> NEW HERE?</h1>
-      <input
-        onChange={updateInput}
-        className={styles.formfield}
-        type="name"
-        name="name"
-        placeholder="Name"
-        value={formData.name || ''}
-      />
-      <input
-        onChange={updateInput}
-        className={styles.formfield}
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email || ''}
-      />
-      <input
-        onChange={updateInput}
-        className={styles.formfield}
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-        value={formData.password || ''}
-      />
-      <input onClick={handleSubmit} className={styles.submit} type="submit" value="REGISTER" />
-    </form>
+    <div className={styles.formContainer}>
+      <form onSubmit={handleSubmit}>
+        <h1 className={styles.formheading}> NEW HERE?</h1>
+        <input
+          onChange={updateInput}
+          className={styles.formfield}
+          type="name"
+          name="name"
+          placeholder="Name"
+          value={formData.name || ''}
+        />
+        <input
+          onChange={updateInput}
+          className={styles.formfield}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email || ''}
+        />
+        <input
+          onChange={updateInput}
+          className={styles.formfield}
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          value={formData.password || ''}
+        />
+        <button onClick={handleSubmit} className={styles.submit} type="submit">
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 

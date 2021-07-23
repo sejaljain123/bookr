@@ -1,6 +1,7 @@
 import { createContext, useContext, Context, useState } from 'react';
 import useFirebaseAuth from '../utils/useFirebaseAuth';
 import firebase from 'firebase';
+import { useEffect } from 'react';
 
 interface Auth {
   authUser: null;
@@ -11,6 +12,7 @@ interface Auth {
   ) => Promise<firebase.auth.UserCredential>;
   createUserWithEmailAndPassword: (email: string, password: string) => Promise<any>;
   signOut: () => Promise<any>;
+  signInWithGoogle: any;
 }
 
 const authUserContext = createContext({

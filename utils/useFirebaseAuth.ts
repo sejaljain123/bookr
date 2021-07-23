@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import Firebase from './Firebase';
+import router from 'next/router'
 
 interface User{
     uid:string;
     email:string;
 }
-
 const formatAuthUser = (user:User) => ({
   uid: user.uid,
   email: user.email
@@ -14,6 +14,7 @@ const formatAuthUser = (user:User) => ({
 export default function useFirebaseAuth() {
   const [authUser, setAuthUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   const authStateChanged = async (authState:any) => {
     if (!authState) {
@@ -40,11 +41,21 @@ export default function useFirebaseAuth() {
     Firebase.auth().createUserWithEmailAndPassword(email, password);
 
   const signOut = () =>
-    Firebase.auth().signOut().then(clear);
+    Firebase.auth().signOut().then(()=>{
+      console.log("logged out")
+    });
+
+ const googleProvider = new Firebase.auth.GoogleAuthProvider();
+
+const signInWithGoogle = async  () => {
+ const data= await Firebase.auth().signInWithPopup(googleProvider);
+  return data.user;
+}
 
   useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged(authStateChanged);
     return () => unsubscribe();
+
   }, []);
 
   return {
@@ -52,6 +63,7 @@ export default function useFirebaseAuth() {
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    signOut
-  };
+    signOut,
+    signInWithGoogle, 
+  } 
 }
